@@ -39,7 +39,10 @@ jobs:
           cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
           cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
           zip ${{github.workspace}}/build/VitaDB.zip -r data/VitaDB
-
+      - name: Delete existing Nightly branch
+        run:
+          git push origin --delete Nightly
+          
       - uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
